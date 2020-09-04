@@ -1,0 +1,21 @@
+{
+  "name": "blunt-livereload",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felixcatto/blunt-livereload.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felixcatto/blunt-livereload/issues"
+  },
+  "homepage": "https://github.com/felixcatto/blunt-livereload#readme",
+  "dependencies": {
+    "fastify": "^3.3.0",
+    "fastify-websocket": "^2.0.7"
+  }
+}
