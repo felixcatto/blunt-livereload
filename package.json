@@ -1,8 +1,8 @@
 {
   "name": "blunt-livereload",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Simple livereload server. 20 linesOfCode on server and 2  LoC on client :fire:",
+  "main": "dist/server.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/felixcatto/blunt-livereload.git"
@@ -14,8 +14,23 @@
     "url": "https://github.com/felixcatto/blunt-livereload/issues"
   },
   "homepage": "https://github.com/felixcatto/blunt-livereload#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "fastify": "^3.3.0",
     "fastify-websocket": "^2.0.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "webpack": "^4.44.1",
+    "webpack-nano": "^1.0.0"
   }
 }

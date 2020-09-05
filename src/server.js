@@ -1,6 +1,6 @@
 import fastify from 'fastify';
 import fastifyWs from 'fastify-websocket';
-import { port } from './config.js';
+import { port } from './config';
 
 export const makeServer = () => {
   const app = fastify();

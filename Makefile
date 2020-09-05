@@ -1,14 +1,14 @@
 install:
 	npm i
 
-start:
-	npx gulp dev
-
 build:
-	?
-
-webpack-bundle:
+	rm -rf dist
 	NODE_ENV=production npx wp
+	npx babel --out-dir=dist src/server.js
+	npx babel --out-dir=dist src/config.js
+
+publish:
+	npm publish --access public
 
 lint:
 	npx eslint --quiet .
