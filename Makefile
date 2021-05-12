@@ -3,7 +3,7 @@ install:
 
 build:
 	rm -rf dist
-	NODE_ENV=production npx wp
+	NODE_ENV=production npx webpack
 	npx babel --out-dir=dist src/server.js
 	npx babel --out-dir=dist src/config.js
 
