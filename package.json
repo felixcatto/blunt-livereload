@@ -1,6 +1,6 @@
 {
   "name": "blunt-livereload",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Simple livereload server. 20 linesOfCode on server and 2  LoC on client :fire:",
   "main": "dist/server.js",
   "repository": {

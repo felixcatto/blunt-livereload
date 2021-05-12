@@ -19,3 +19,8 @@ const watch = done => {
 
 export const dev = gulp.series(startDevServer, watch);
 ```
+
+Also you can serve static content with it
+```
+const devServer = makeServer({ staticPath: path.resolve(__dirname, 'dist/public') });
+```
