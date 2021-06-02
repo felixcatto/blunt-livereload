@@ -3,7 +3,7 @@ import fastifyStatic from 'fastify-static';
 import fastifyWs from 'fastify-websocket';
 import { port } from './config';
 
-export const makeServer = ({ staticPath }) => {
+export const makeServer = ({ staticPath = null } = {}) => {
   const app = fastify();
   app.register(fastifyWs, { handle: () => {}, options: { clientTracking: true } });
   if (staticPath) {
