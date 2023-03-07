@@ -1,8 +1,9 @@
 {
   "name": "blunt-livereload",
-  "version": "0.1.5",
+  "type": "module",
+  "version": "1.0.0",
   "description": "Simple livereload server. 20 linesOfCode on server and 2  LoC on client :fire:",
-  "main": "dist/server.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/felixcatto/blunt-livereload.git"
@@ -14,24 +15,25 @@
     "url": "https://github.com/felixcatto/blunt-livereload/issues"
   },
   "homepage": "https://github.com/felixcatto/blunt-livereload#readme",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "dependencies": {
-    "fastify": "^3.15.1",
-    "fastify-static": "^4.0.1",
-    "fastify-websocket": "^2.0.7"
+    "@fastify/static": "^6.9.0",
+    "@fastify/websocket": "^7.1.2",
+    "fastify": "^4.14.1",
+    "ws": "^8.12.1",
+    "xstate": "^4.37.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
-    "eslint": "^7.8.1",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^4.7.0"
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.21.0",
+    "@types/node": "^18.14.6",
+    "babel-loader": "^9.1.2",
+    "del": "^7.0.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "wait-on": "^7.0.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }
