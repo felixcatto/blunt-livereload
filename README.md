@@ -65,13 +65,13 @@ Then type `npx gulp start`
 
 ## Gulp + Webpack example
 
-**gulpfile.js** - almost same
+**gulpfile.js**
 
 ```
-import { listen, makeBackClient, makeLrServer } from 'blunt-livereload';
-import gulp from 'gulp';
-import webpack from 'webpack';
-import webpackConfig from './webpack.config.js';
+const { listen, makeBackClient, makeLrServer } = require('blunt-livereload');
+const gulp = require('gulp');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config.js');
 
 const { series } = gulp;
 
@@ -89,7 +89,9 @@ const startWebpackWatch = done => {
   compiler.watch({}, done);
 };
 
-export const start = series(startLrServer, startWebpackWatch);
+const start = series(startLrServer, startWebpackWatch);
+
+module.exports = { start };
 ```
 
 **webpack.config.js**
@@ -114,7 +116,7 @@ if (process.env.NODE_ENV === 'production') {
   };
 }
 
-export default config;
+module.exports = config
 </code></pre>
 
 Then type `npx gulp start`

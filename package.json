@@ -1,7 +1,6 @@
 {
   "name": "blunt-livereload",
-  "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Simple livereload server",
   "main": "dist/index.js",
   "repository": {
@@ -30,7 +29,6 @@
     "@types/node": "^18.14.6",
     "babel-loader": "^9.1.2",
     "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
     "typescript": "^4.9.5",
     "wait-on": "^7.0.1",
     "webpack": "^5.75.0",
