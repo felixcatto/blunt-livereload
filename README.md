@@ -1,43 +1,120 @@
-# Description
+## Description
 
-Simple livereload server. 20 linesOfCode on server and 2 LoC on client :fire:
+Live Reload script, mainly designed for usage in programmatic environments like Gulp.
 
-Usage with gulp
+## How it works:
+
+It contains 3 entities - LiveReloadServer, FrontClient, BackClient. You start liveReloadServer and BackClient, and include FrontClient script in your html file. Now whenever you change your html/css or bundle new js file, BackClient sends signal to LiveReloadServer, which sends signal to FrontClient in your html page in browser - 'hey, new content available, pls reload'. Then browser automatically reloads, and you see new content, without the need to press F5.
+
+You can detect changes in your html/css/js files via gulp. Also webpack have watch functionality. So you can send liveReload signals when gulp/webpack are finished processing files.
+
+## Installation
+
+`npm i -D blunt-livereload`
+
+## Simple gulp example
+
+**gulpfile.js**
 
 ```
-import gulp from 'gulp';
-import { makeServer, listen } from './server.js';
+const { listen, makeBackClient, makeLrServer } = require('blunt-livereload');
+const gulp = require('gulp');
 
-const devServer = makeServer();
-const startDevServer = async () => listen(devServer);
-const reloadBrowser = async () => devServer.reloadBrowser();
+const { series } = gulp;
 
-const watch = done => {
-  gulp.watch('server.js', reloadBrowser);
-  done();
+const startLrServer = async () => {
+  const lrServer = makeLrServer();
+  return listen(lrServer);
 };
 
-export const dev = gulp.series(startDevServer, watch);
+const backClient = makeBackClient();
+const reloadBrowser = async () => backClient.notifyWindowReload();
+
+const paths = {
+  dest: 'build',
+  public: { src: 'src/**/*' },
+};
+
+const copyPublic = () =>
+  gulp.src(paths.public.src, { since: gulp.lastRun(copyPublic) }).pipe(gulp.dest(paths.dest));
+
+const watch = async () => {
+  gulp.watch(paths.public.src, series(copyPublic, reloadBrowser));
+};
+
+const start = series(startLrServer, watch);
+
+module.exports = { start };
 ```
 
-Also you can serve static content with it
+**index.html**
 
 ```
-const devServer = makeServer({ staticPath: path.resolve(__dirname, 'dist/public') });
+<!DOCTYPE html>
+<html lang="en">
+...
+  <body>
+    ...
+    <script src="/frontClient.js"></script>
+  </body>
+</html>
+```
+Copy `frontClient.js` from `node_modules/blunt-livereload/dist/frontClient.js` to your public folder
+
+Then type `npx gulp start`
+
+## Gulp + Webpack example
+
+**gulpfile.js** - almost same
+
+```
+import { listen, makeBackClient, makeLrServer } from 'blunt-livereload';
+import gulp from 'gulp';
+import webpack from 'webpack';
+import webpackConfig from './webpack.config.js';
+
+const { series } = gulp;
+
+const startLrServer = async () => {
+  const lrServer = makeLrServer();
+  return listen(lrServer);
+};
+
+const backClient = makeBackClient();
+const reloadBrowser = async () => backClient.notifyWindowReload();
+
+const compiler = webpack(webpackConfig);
+const startWebpackWatch = done => {
+  compiler.hooks.done.tap('done', async () => reloadBrowser());
+  compiler.watch({}, done);
+};
+
+export const start = series(startLrServer, startWebpackWatch);
 ```
 
-Don't forget to add client script to your html file.
+**webpack.config.js**
 
-```
-<script src="blunt-livereload/dist/client.js"></script>
-```
+<pre><code>
+const common = {
+  entry: { index: ... },
+  ...
+};
 
-but you need to manually copy it from node_modules to your assets folder
+let config;
+if (process.env.NODE_ENV === 'production') {
+  config = {
+    ...common,
+    mode: 'production',
+  };
+} else {
+  <b>common.entry.index = ['blunt-livereload/dist/frontClient', common.entry.index];</b>
+  config = {
+    ...common,
+    mode: 'development',
+  };
+}
 
-In webpack you can do like this
+export default config;
+</code></pre>
 
-```
-entry: {
-  index: ['blunt-livereload/dist/client', path.resolve(__dirname, 'src/index.js')],
-},
-```
+Then type `npx gulp start`

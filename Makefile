@@ -1,7 +1,7 @@
 install:
 	npm i
 
-prepare:
+prepare-start:
 	rm -rf dist
 	npx babel --out-dir="dist" --extensions=".ts" main
 

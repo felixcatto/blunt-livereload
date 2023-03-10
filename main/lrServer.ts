@@ -1,11 +1,11 @@
-import fy, { FastifyInstance } from 'fastify';
 import fastifyStatic from '@fastify/static';
 import fastifyWs from '@fastify/websocket';
+import fy, { FastifyInstance } from 'fastify';
 import { port } from './config.js';
 import { IWSSDecodeReturn } from './types.js';
 import { send, wsEvents } from './utils.js';
 
-const decode = buffer => JSON.parse(buffer.toString()) as IWSSDecodeReturn;
+const decode = message => JSON.parse(message) as IWSSDecodeReturn;
 
 const wss = async (fastify: FastifyInstance) => {
   const broadcast = (eventType, payload = '') => {
@@ -16,11 +16,13 @@ const wss = async (fastify: FastifyInstance) => {
 
   fastify.get('/', { websocket: true }, (connection, req) => {
     connection.socket.on('message', buffer => {
+      const message = buffer.toString();
+      if (message === wsEvents.ping) {
+        return connection.socket.send(wsEvents.pong);
+      }
+
       const { type, payload } = decode(buffer);
       switch (type) {
-        case wsEvents.ping:
-          send(connection.socket, wsEvents.pong);
-          break;
         case wsEvents.notifyWindowReload:
           broadcast(wsEvents.windowReload);
           break;

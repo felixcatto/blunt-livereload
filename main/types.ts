@@ -6,22 +6,15 @@ export type IMakeEnum = <T extends ReadonlyArray<string>>(
 
 export type IWsEvents = typeof wsEvents;
 
-export type IWSSDecodeReturn =
-  | {
-      type: IWsEvents['ping'];
-      payload: any;
-    }
-  | {
-      type: IWsEvents['notifyWindowReload'];
-      payload: any;
-    };
+export type IWSSDecodeReturn = {
+  type: IWsEvents['notifyWindowReload'];
+  payload: any;
+};
 
-export type IWSDecodeReturn =
-  | {
-      type: IWsEvents['pong'];
-      payload: any;
-    }
-  | {
-      type: IWsEvents['windowReload'];
-      payload: any;
-    };
+export type IWSDecodeReturn = {
+  type: IWsEvents['windowReload'];
+  payload: any;
+};
+
+export type IConnectToWss = () => WebSocket;
+export type IAddEventListener = (webSocket: WebSocket, event, handler) => void;

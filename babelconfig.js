@@ -6,6 +6,9 @@ export default {
     ],
   },
   server: {
-    presets: ['@babel/preset-typescript'],
+    presets: [
+      ['@babel/preset-env', { targets: { node: true } }],
+      '@babel/preset-typescript',
+    ],
   },
 };
