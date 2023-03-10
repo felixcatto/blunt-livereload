@@ -67,7 +67,7 @@ export const makeSocketMachine = (connectToWss, addEventListener, bufferToString
         [states.connectionError]: {
           entry: 'stopWsActor',
           after: {
-            5000: {
+            3000: {
               target: states.connecting,
               actions: 'startWsActor',
             },
@@ -106,7 +106,7 @@ export const makeSocketMachine = (connectToWss, addEventListener, bufferToString
       },
       services: {
         pingActor: (ctx, e) => (sendBack, onReceive) => {
-          const id = setInterval(() => sendBack(makeEvent(events.PING)), 10000);
+          const id = setInterval(() => sendBack(makeEvent(events.PING)), 7000);
           return () => clearInterval(id);
         },
       },
