@@ -21,9 +21,7 @@ actor.subscribe(state => {
         break;
     }
   }
-  if (events.OPEN === state.event.type) {
-    console.log('LiveReload connected');
-  }
 });
 
 actor.start();
+console.log('LiveReload enabled');
