@@ -14,13 +14,17 @@ start-server:
 build:
 	rm -rf dist
 	NODE_ENV=production npx webpack
-	npx babel --out-dir="dist" --extensions=".ts" main
+	npx babel --out-dir="dist" --config-file="./babelrc.js" \
+	--extensions=".ts" --out-file-extension=".cjs" \
+	main
 
 webpack-bundle:
 	npx webpack
 
 servar-bundle:
-	npx babel --out-dir="dist" --extensions=".ts" main
+	npx babel --out-dir="dist" --config-file="./babelrc.js" \
+	--extensions=".ts" --out-file-extension=".cjs" \
+	main
 
 publish:
 	npm publish --access public

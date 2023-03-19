@@ -17,17 +17,16 @@ You can detect changes in your html/css/js files via gulp. Also webpack have wat
 **gulpfile.js**
 
 ```
-const { listen, makeBackClient, makeLrServer } = require('blunt-livereload');
+const { listen, backClient, makeLrServer } = require('blunt-livereload');
 const gulp = require('gulp');
 
 const { series } = gulp;
 
 const startLrServer = async () => {
+  backClient.start();
   const lrServer = makeLrServer();
   return listen(lrServer);
 };
-
-const backClient = makeBackClient();
 const reloadBrowser = async () => backClient.notifyWindowReload();
 
 const paths = {
@@ -68,7 +67,7 @@ Then type `npx gulp start`
 **gulpfile.js**
 
 ```
-const { listen, makeBackClient, makeLrServer } = require('blunt-livereload');
+const { listen, backClient, makeLrServer } = require('blunt-livereload');
 const gulp = require('gulp');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.js');
@@ -76,11 +75,10 @@ const webpackConfig = require('./webpack.config.js');
 const { series } = gulp;
 
 const startLrServer = async () => {
+  backClient.start();
   const lrServer = makeLrServer();
   return listen(lrServer);
 };
-
-const backClient = makeBackClient();
 const reloadBrowser = async () => backClient.notifyWindowReload();
 
 const compiler = webpack(webpackConfig);

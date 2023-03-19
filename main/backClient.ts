@@ -9,12 +9,9 @@ const bufferToString = buffer => buffer.toString();
 
 const actor = interpret(makeSocketMachine(connectToWss, addEventListener, bufferToString));
 
-export const makeBackClient = () => {
-  actor.start();
-
-  return {
-    notifyWindowReload: () => {
-      actor.send(makeEvent(events.SEND_MESSAGE, encode(wsEvents.notifyWindowReload)));
-    },
-  };
+export const backClient = {
+  start: () => actor.start(),
+  notifyWindowReload: () => {
+    actor.send(makeEvent(events.SEND_MESSAGE, encode(wsEvents.notifyWindowReload)));
+  },
 };

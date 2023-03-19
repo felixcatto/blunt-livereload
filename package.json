@@ -1,8 +1,9 @@
 {
   "name": "blunt-livereload",
-  "version": "1.0.6",
+  "version": "1.0.13",
+  "type": "module",
   "description": "Simple livereload server",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/felixcatto/blunt-livereload.git"
@@ -28,6 +29,7 @@
     "@babel/preset-typescript": "^7.21.0",
     "@types/node": "^18.14.6",
     "babel-loader": "^9.1.2",
+    "babel-plugin-replace-import-extension": "^1.1.3",
     "gulp": "^4.0.2",
     "typescript": "^4.9.5",
     "wait-on": "^7.0.1",
